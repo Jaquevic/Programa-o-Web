@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1> busque o pokemon </h1>
+    <button onclick="buscarP()">Buscar</button>
+    <input type="text" id="nomePokemon" placeholder="Digite o nome do Pokémon">
+  
+
+<div id="resultado"></div>
+
+<script>
+
+ async function buscarP() {
+    const nome = document.getElementById ('nomePokemon').value.toLowerCase();
+    const resultado = document.getElementById ('resultado')
+ 
+
+ try{
+
+    const resposta = await fetch (`https://pokeapi.co/api/v2/pokemon/${nome}`);
+    if (!resposta.ok) {
+
+        throw new Error('Pokémon não encontrado');
+    }
+
+    const dados = await resposta.json();
+    resultado.textContent = `Nome: ${dados.name}`;
+
+} catch (erro) {
+        resultado.textContent = erro.message;
+      }
+ 
+    }
+    
+</script>
+</body>
+</html>
